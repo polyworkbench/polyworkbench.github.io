@@ -5,110 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PolyWorkBench Leaderboard</title>
     <style>
-        :root {
-            --primary: #2563eb;
-            --primary-light: #eff6ff;
-            --accent: #f59e0b;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text: #1e293b;
-            --text-light: #64748b;
-            --border: #e2e8f0;
-            --success: #10b981;
-        }
+        :root { --primary: #2563eb; --primary-light: #eff6ff; --accent: #f59e0b; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; --success: #10b981; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg); color: var(--text); line-height: 1.6;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-
-        .header {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            color: white; padding: 48px 0 36px; text-align: center;
-        }
+        .header { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 48px 0 36px; text-align: center; }
         .header-logo { width: 80px; height: 80px; margin-bottom: 16px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
         .header h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 8px; }
         .header p { font-size: 1.1rem; opacity: 0.85; max-width: 700px; margin: 0 auto; }
         .badge { display: inline-block; background: rgba(245,158,11,0.2); border: 1px solid var(--accent); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-top: 12px; }
-
         .stats-bar { display: flex; justify-content: center; gap: 48px; padding: 24px 0; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
-        .stat { text-align: center; }
-        .stat-value { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
-        .stat-label { font-size: 0.85rem; color: var(--text-light); }
-
+        .stat { text-align: center; } .stat-value { font-size: 1.8rem; font-weight: 700; color: var(--primary); } .stat-label { font-size: 0.85rem; color: var(--text-light); }
         .leaderboard-card { background: var(--card); border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; margin-bottom: 32px; }
         .leaderboard-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-bottom: 1px solid var(--border); }
         .leaderboard-header h2 { font-size: 1.3rem; }
-
         .leaderboard-table { width: 100%; border-collapse: collapse; }
         .leaderboard-table th { text-align: left; padding: 12px 16px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-light); background: #f1f5f9; border-bottom: 1px solid var(--border); }
         .leaderboard-table td { padding: 16px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
-        .leaderboard-table tr:hover { background: var(--primary-light); }
-        .leaderboard-table tr { cursor: pointer; transition: background 0.15s; }
-
+        .leaderboard-table tr:hover { background: var(--primary-light); } .leaderboard-table tr { cursor: pointer; transition: background 0.15s; }
         .rank-cell { width: 50px; text-align: center; font-weight: 700; font-size: 1.1rem; }
         .rank-1 { color: #f59e0b; } .rank-2 { color: #94a3b8; } .rank-3 { color: #b45309; }
-
         .model-cell { display: flex; align-items: center; gap: 12px; }
         .model-icon { width: 32px; height: 32px; border-radius: 8px; object-fit: contain; flex-shrink: 0; }
         .model-icon-placeholder { width: 32px; height: 32px; border-radius: 8px; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: var(--text-light); flex-shrink: 0; }
-        .model-name { font-weight: 600; }
-        .model-org { font-size: 0.8rem; color: var(--text-light); }
-
+        .model-name { font-weight: 600; } .model-org { font-size: 0.8rem; color: var(--text-light); }
         .score-cell { font-weight: 700; font-size: 1.05rem; }
         .score-bar { display: inline-block; height: 6px; border-radius: 3px; background: var(--border); width: 80px; margin-left: 8px; vertical-align: middle; position: relative; overflow: hidden; }
         .score-bar-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; background: var(--primary); }
-
         .cat-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 600; background: #f1f5f9; color: var(--text-light); }
-        .cat-high { background: #d1fae5; color: #065f46; }
-        .cat-mid { background: #fef3c7; color: #92400e; }
-        .cat-low { background: #fee2e2; color: #991b1b; }
-
-        .status-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: 500; }
-        .status-complete { background: #d1fae5; color: #065f46; }
-
+        .cat-high { background: #d1fae5; color: #065f46; } .cat-mid { background: #fef3c7; color: #92400e; } .cat-low { background: #fee2e2; color: #991b1b; }
+        .status-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: 500; } .status-complete { background: #d1fae5; color: #065f46; }
         .detail-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; overflow-y: auto; }
         .detail-overlay.active { display: block; }
         .detail-panel { background: var(--card); max-width: 900px; margin: 40px auto; border-radius: 12px; padding: 32px; position: relative; }
         .detail-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-light); }
-        .detail-header { margin-bottom: 24px; }
-        .detail-header h2 { font-size: 1.5rem; margin-bottom: 4px; }
+        .detail-header { margin-bottom: 24px; } .detail-header h2 { font-size: 1.5rem; margin-bottom: 4px; }
         .detail-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 24px; }
         .detail-stat { text-align: center; padding: 12px; background: #f8fafc; border-radius: 8px; }
-        .detail-stat-value { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
-        .detail-stat-label { font-size: 0.75rem; color: var(--text-light); }
-
+        .detail-stat-value { font-size: 1.2rem; font-weight: 700; color: var(--primary); } .detail-stat-label { font-size: 0.75rem; color: var(--text-light); }
         .task-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
         .task-table th { text-align: left; padding: 8px 12px; background: #f1f5f9; font-size: 0.75rem; text-transform: uppercase; color: var(--text-light); }
-        .task-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
-        .task-table tr:hover { background: #f8fafc; }
-        .grade-high { color: #059669; font-weight: 600; }
-        .grade-mid { color: #d97706; font-weight: 600; }
-        .grade-low { color: #dc2626; font-weight: 600; }
-
-        .footer { text-align: center; padding: 32px 0; color: var(--text-light); font-size: 0.85rem; }
-        .footer a { color: var(--primary); text-decoration: none; }
-
-        @media (max-width: 768px) {
-            .header h1 { font-size: 1.8rem; }
-            .stats-bar { flex-wrap: wrap; gap: 24px; }
-            .detail-grid { grid-template-columns: repeat(3, 1fr); }
-            .leaderboard-table .cat-col { display: none; }
-        }
+        .task-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); } .task-table tr:hover { background: #f8fafc; }
+        .grade-high { color: #059669; font-weight: 600; } .grade-mid { color: #d97706; font-weight: 600; } .grade-low { color: #dc2626; font-weight: 600; }
+        .footer { text-align: center; padding: 32px 0; color: var(--text-light); font-size: 0.85rem; } .footer a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 768px) { .header h1 { font-size: 1.8rem; } .stats-bar { flex-wrap: wrap; gap: 24px; } .detail-grid { grid-template-columns: repeat(3, 1fr); } .leaderboard-table .cat-col { display: none; } }
     </style>
 </head>
 <body>
-
-<div class="header">
-    <div class="container">
-        <img src="assets/polyworkbench.png" alt="PolyWorkBench" class="header-logo" onerror="this.style.display='none'">
-        <h1>PolyWorkBench Leaderboard</h1>
-        <p>Multilingual Agent Benchmark for Long-Horizon Tasks &mdash; evaluating LLM agents across 67 tasks in 10+ languages spanning Commerce, Knowledge, Legal, Localization, and Manufacturing domains.</p>
-        <span class="badge">n=1 results &bull; Pass@3 / Pass^3 coming soon</span>
-    </div>
-</div>
-
+<div class="header"><div class="container">
+    <img src="assets/polyworkbench.png" alt="PolyWorkBench" class="header-logo" onerror="this.style.display='none'">
+    <h1>PolyWorkBench Leaderboard</h1>
+    <p>Multilingual Agent Benchmark for Long-Horizon Tasks &mdash; evaluating LLM agents across 67 tasks in 10+ languages spanning Commerce, Knowledge, Legal, Localization, and Manufacturing domains.</p>
+    <span class="badge">n=1 results &bull; Pass@3 / Pass^3 coming soon</span>
+</div></div>
 <div class="container">
     <div class="stats-bar">
         <div class="stat"><div class="stat-value">67</div><div class="stat-label">Tasks</div></div>
@@ -116,66 +65,36 @@
         <div class="stat"><div class="stat-value">5</div><div class="stat-label">Domains</div></div>
         <div class="stat"><div class="stat-value">8</div><div class="stat-label">Models</div></div>
     </div>
-
     <div class="leaderboard-card">
-        <div class="leaderboard-header">
-            <h2>Overall Ranking</h2>
-            <span style="font-size:0.8rem; color:var(--text-light)">Sorted by Average Grade (n=1, single run)</span>
-        </div>
+        <div class="leaderboard-header"><h2>Overall Ranking</h2><span style="font-size:0.8rem; color:var(--text-light)">Sorted by Average Grade (n=1, single run)</span></div>
         <table class="leaderboard-table">
-            <thead>
-                <tr>
-                    <th style="width:50px">#</th>
-                    <th>Model</th>
-                    <th>Avg Grade</th>
-                    <th class="cat-col">COM</th>
-                    <th class="cat-col">KNW</th>
-                    <th class="cat-col">LEG</th>
-                    <th class="cat-col">LOC</th>
-                    <th class="cat-col">MFG</th>
-                    <th>Tasks</th>
-                </tr>
-            </thead>
+            <thead><tr><th style="width:50px">#</th><th>Model</th><th>Avg Grade</th><th class="cat-col">COM</th><th class="cat-col">KNW</th><th class="cat-col">LEG</th><th class="cat-col">LOC</th><th class="cat-col">MFG</th><th>Tasks</th></tr></thead>
             <tbody id="leaderboard-body"></tbody>
         </table>
     </div>
-
     <div class="leaderboard-card">
         <div class="leaderboard-header"><h2>About PolyWorkBench</h2></div>
         <div style="padding: 24px; font-size: 0.95rem; line-height: 1.8;">
             <p style="margin-bottom:12px"><strong>PolyWorkBench</strong> evaluates LLM agents on complex, multilingual, long-horizon tasks requiring multi-step tool use, cross-lingual understanding, and structured output generation.</p>
-            <p style="margin-bottom:12px"><strong>Evaluation Tracks:</strong> Each task is graded on three independent tracks:</p>
+            <p style="margin-bottom:12px"><strong>Evaluation Tracks:</strong></p>
             <ul style="margin-left:20px; margin-bottom:12px;">
                 <li><strong>Grade</strong> &mdash; Task-specific multi-dimensional structural scoring (primary metric)</li>
                 <li><strong>Pytest</strong> &mdash; Functional pass/fail test suite</li>
-                <li><strong>Judge</strong> &mdash; LLM-as-Judge (GPT-5.4) quality assessment</li>
+                <li><strong>Judge</strong> &mdash; LLM-as-Judge quality assessment</li>
             </ul>
-            <p style="margin-bottom:12px"><strong>Current Status:</strong> All scores are <strong>n=1</strong> (single run). Future updates will include n=3 with Pass@3 (at least 1 of 3 passes) and Pass^3 (all 3 pass) for robustness evaluation.</p>
-            <p><strong>Domains:</strong> COM (Commerce, 16 tasks) | KNW (Knowledge, 11) | LEG (Legal, 15) | LOC (Localization, 11) | MFG (Manufacturing, 14)</p>
+            <p style="margin-bottom:12px"><strong>Current Status:</strong> All scores are <strong>n=1</strong> (single run). Future updates will include n=3 with Pass@3 and Pass^3 metrics.</p>
+            <p><strong>Domains:</strong> COM (Commerce, 16) | KNW (Knowledge, 11) | LEG (Legal, 15) | LOC (Localization, 11) | MFG (Manufacturing, 14)</p>
         </div>
     </div>
 </div>
-
-<div class="detail-overlay" id="detail-overlay">
-    <div class="detail-panel">
-        <button class="detail-close" onclick="closeDetail()">&times;</button>
-        <div class="detail-header">
-            <h2 id="detail-model-name"></h2>
-            <p id="detail-model-org" style="color:var(--text-light)"></p>
-        </div>
-        <div class="detail-grid" id="detail-stats"></div>
-        <h3 style="margin-bottom:12px; font-size:1rem;">Per-Task Results</h3>
-        <table class="task-table">
-            <thead><tr><th>Task</th><th>Category</th><th>Grade</th><th>Pytest</th><th>Judge</th></tr></thead>
-            <tbody id="detail-tasks"></tbody>
-        </table>
-    </div>
-</div>
-
-<div class="footer">
-    <p>PolyWorkBench &copy; 2026 | Last updated: <span id="last-updated"></span></p>
-</div>
-
+<div class="detail-overlay" id="detail-overlay"><div class="detail-panel">
+    <button class="detail-close" onclick="closeDetail()">&times;</button>
+    <div class="detail-header"><h2 id="detail-model-name"></h2><p id="detail-model-org" style="color:var(--text-light)"></p></div>
+    <div class="detail-grid" id="detail-stats"></div>
+    <h3 style="margin-bottom:12px; font-size:1rem;">Per-Task Results</h3>
+    <table class="task-table"><thead><tr><th>Task</th><th>Category</th><th>Grade</th><th>Pytest</th><th>Judge</th></tr></thead><tbody id="detail-tasks"></tbody></table>
+</div></div>
+<div class="footer"><p>PolyWorkBench &copy; 2026 | Last updated: <span id="last-updated"></span></p></div>
 <script>
 const LEADERBOARD_DATA = {
   "GPT-5.5": {
@@ -538,10 +457,10 @@ const LEADERBOARD_DATA = {
         "judge": 0.82
       },
       "LOC-11_es_code_doc_localization": {
-        "grade": 0.0,
-        "pytest": 0.0,
-        "pytest_passed": 0,
-        "pytest_total": 1,
+        "grade": 0.675,
+        "pytest": 1.0,
+        "pytest_passed": 7,
+        "pytest_total": 8,
         "judge": 1.0
       },
       "LOC-12_en_ui_consistency_check": {
@@ -654,10 +573,10 @@ const LEADERBOARD_DATA = {
       "COM": 0.7527,
       "KNW": 0.6706,
       "LEG": 0.763,
-      "LOC": 0.7613,
+      "LOC": 0.8227,
       "MFG": 0.9123
     },
-    "overall": 0.7763,
+    "overall": 0.7864,
     "total_tasks": 67,
     "org": "OpenAI",
     "logo": "assets/openai.png"
@@ -1022,10 +941,10 @@ const LEADERBOARD_DATA = {
         "judge": 0.72
       },
       "LOC-11_es_code_doc_localization": {
-        "grade": 0.0,
-        "pytest": 0.0,
-        "pytest_passed": 0,
-        "pytest_total": 1,
+        "grade": 0.675,
+        "pytest": 1.0,
+        "pytest_passed": 7,
+        "pytest_total": 8,
         "judge": 1.0
       },
       "LOC-12_en_ui_consistency_check": {
@@ -1138,10 +1057,10 @@ const LEADERBOARD_DATA = {
       "COM": 0.7786,
       "KNW": 0.6912,
       "LEG": 0.6225,
-      "LOC": 0.7522,
+      "LOC": 0.8135,
       "MFG": 0.7968
     },
-    "overall": 0.7288,
+    "overall": 0.7388,
     "total_tasks": 67,
     "org": "MiniMax",
     "logo": "assets/minimax.png"
@@ -1506,10 +1425,10 @@ const LEADERBOARD_DATA = {
         "judge": 0.0
       },
       "LOC-11_es_code_doc_localization": {
-        "grade": 0.0,
-        "pytest": 0.0,
-        "pytest_passed": 0,
-        "pytest_total": 1,
+        "grade": 0.675,
+        "pytest": 1.0,
+        "pytest_passed": 7,
+        "pytest_total": 8,
         "judge": 1.0
       },
       "LOC-12_en_ui_consistency_check": {
@@ -1622,10 +1541,10 @@ const LEADERBOARD_DATA = {
       "COM": 0.7031,
       "KNW": 0.745,
       "LEG": 0.6458,
-      "LOC": 0.6808,
+      "LOC": 0.7422,
       "MFG": 0.8466
     },
-    "overall": 0.7235,
+    "overall": 0.7336,
     "total_tasks": 67,
     "org": "MiniMax",
     "logo": "assets/minimax.png"
@@ -1990,10 +1909,10 @@ const LEADERBOARD_DATA = {
         "judge": 0.75
       },
       "LOC-11_es_code_doc_localization": {
-        "grade": 0.0,
-        "pytest": 0.0,
-        "pytest_passed": 0,
-        "pytest_total": 1,
+        "grade": 0.675,
+        "pytest": 1.0,
+        "pytest_passed": 7,
+        "pytest_total": 8,
         "judge": 1.0
       },
       "LOC-12_en_ui_consistency_check": {
@@ -2106,10 +2025,10 @@ const LEADERBOARD_DATA = {
       "COM": 0.6611,
       "KNW": 0.7514,
       "LEG": 0.6182,
-      "LOC": 0.7504,
+      "LOC": 0.8118,
       "MFG": 0.8082
     },
-    "overall": 0.7117,
+    "overall": 0.7218,
     "total_tasks": 67,
     "org": "Anthropic",
     "logo": "assets/anthropic.png"
@@ -2474,10 +2393,10 @@ const LEADERBOARD_DATA = {
         "judge": 0.8
       },
       "LOC-11_es_code_doc_localization": {
-        "grade": 0.0,
-        "pytest": 0.0,
-        "pytest_passed": 0,
-        "pytest_total": 1,
+        "grade": 0.675,
+        "pytest": 1.0,
+        "pytest_passed": 7,
+        "pytest_total": 8,
         "judge": 1.0
       },
       "LOC-12_en_ui_consistency_check": {
@@ -2590,10 +2509,10 @@ const LEADERBOARD_DATA = {
       "COM": 0.6707,
       "KNW": 0.7461,
       "LEG": 0.5892,
-      "LOC": 0.7436,
+      "LOC": 0.805,
       "MFG": 0.8229
     },
-    "overall": 0.7086,
+    "overall": 0.7187,
     "total_tasks": 67,
     "org": "Anthropic",
     "logo": "assets/anthropic.png"
@@ -2958,10 +2877,10 @@ const LEADERBOARD_DATA = {
         "judge": 0.0
       },
       "LOC-11_es_code_doc_localization": {
-        "grade": 0.0,
-        "pytest": 0.0,
-        "pytest_passed": 0,
-        "pytest_total": 1,
+        "grade": 0.675,
+        "pytest": 1.0,
+        "pytest_passed": 7,
+        "pytest_total": 8,
         "judge": 1.0
       },
       "LOC-12_en_ui_consistency_check": {
@@ -3074,10 +2993,10 @@ const LEADERBOARD_DATA = {
       "COM": 0.5835,
       "KNW": 0.5363,
       "LEG": 0.6625,
-      "LOC": 0.7704,
+      "LOC": 0.8317,
       "MFG": 0.7495
     },
-    "overall": 0.6588,
+    "overall": 0.6689,
     "total_tasks": 67,
     "org": "Alibaba Cloud",
     "logo": "assets/qwen.png"
@@ -3442,10 +3361,10 @@ const LEADERBOARD_DATA = {
         "judge": 0.0
       },
       "LOC-11_es_code_doc_localization": {
-        "grade": 0.0,
-        "pytest": 0.0,
-        "pytest_passed": 0,
-        "pytest_total": 1,
+        "grade": 0.675,
+        "pytest": 1.0,
+        "pytest_passed": 7,
+        "pytest_total": 8,
         "judge": 1.0
       },
       "LOC-12_en_ui_consistency_check": {
@@ -3558,10 +3477,10 @@ const LEADERBOARD_DATA = {
       "COM": 0.4639,
       "KNW": 0.6838,
       "LEG": 0.6499,
-      "LOC": 0.696,
+      "LOC": 0.7574,
       "MFG": 0.7996
     },
-    "overall": 0.6499,
+    "overall": 0.66,
     "total_tasks": 67,
     "org": "Alibaba Cloud",
     "logo": "assets/qwen.png"
@@ -3926,10 +3845,10 @@ const LEADERBOARD_DATA = {
         "judge": 0.8
       },
       "LOC-11_es_code_doc_localization": {
-        "grade": 0.0,
-        "pytest": 0.0,
-        "pytest_passed": 0,
-        "pytest_total": 1,
+        "grade": 0.675,
+        "pytest": 1.0,
+        "pytest_passed": 7,
+        "pytest_total": 8,
         "judge": 1.0
       },
       "LOC-12_en_ui_consistency_check": {
@@ -4042,24 +3961,21 @@ const LEADERBOARD_DATA = {
       "COM": 0.3864,
       "KNW": 0.4324,
       "LEG": 0.5646,
-      "LOC": 0.5512,
+      "LOC": 0.6126,
       "MFG": 0.4517
     },
-    "overall": 0.4746,
+    "overall": 0.4846,
     "total_tasks": 67,
     "org": "DeepSeek",
     "logo": "assets/deepseek.png"
   }
 };
-
 function getGradeClass(g) { return g >= 0.7 ? 'grade-high' : g >= 0.3 ? 'grade-mid' : 'grade-low'; }
 function getCatClass(s) { return s >= 0.7 ? 'cat-high' : s >= 0.5 ? 'cat-mid' : 'cat-low'; }
-
 function renderLeaderboard() {
     const sorted = Object.entries(LEADERBOARD_DATA).sort((a, b) => b[1].overall - a[1].overall);
     const tbody = document.getElementById('leaderboard-body');
     tbody.innerHTML = '';
-
     sorted.forEach(([name, data], idx) => {
         const rank = idx + 1;
         const rankClass = rank <= 3 ? `rank-${rank}` : '';
@@ -4067,52 +3983,24 @@ function renderLeaderboard() {
         const cats = data.categories || {};
         const logo = data.logo || '';
         const org = data.org || '';
-
-        const logoHtml = logo
-            ? `<img src="${logo}" class="model-icon" alt="${org}" onerror="this.outerHTML=\'<div class=model-icon-placeholder>${org.substring(0,2)}</div>\'">` 
-            : `<div class="model-icon-placeholder">${org.substring(0,2)}</div>`;
-
+        const logoHtml = logo ? `<img src="${logo}" class="model-icon" alt="${org}" onerror="this.outerHTML=\'<div class=model-icon-placeholder>${org.substring(0,2)}</div>\'">` : `<div class="model-icon-placeholder">${org.substring(0,2)}</div>`;
         const tr = document.createElement('tr');
         tr.onclick = () => showDetail(name);
-        tr.innerHTML = `
-            <td class="rank-cell ${rankClass}">${rankEmoji}</td>
-            <td><div class="model-cell">${logoHtml}<div><div class="model-name">${name}</div><div class="model-org">${org}</div></div></div></td>
-            <td class="score-cell">${data.overall.toFixed(3)}<span class="score-bar"><span class="score-bar-fill" style="width:${data.overall*100}%"></span></span></td>
-            <td class="cat-col"><span class="cat-badge ${getCatClass(cats.COM||0)}">${(cats.COM||0).toFixed(2)}</span></td>
-            <td class="cat-col"><span class="cat-badge ${getCatClass(cats.KNW||0)}">${(cats.KNW||0).toFixed(2)}</span></td>
-            <td class="cat-col"><span class="cat-badge ${getCatClass(cats.LEG||0)}">${(cats.LEG||0).toFixed(2)}</span></td>
-            <td class="cat-col"><span class="cat-badge ${getCatClass(cats.LOC||0)}">${(cats.LOC||0).toFixed(2)}</span></td>
-            <td class="cat-col"><span class="cat-badge ${getCatClass(cats.MFG||0)}">${(cats.MFG||0).toFixed(2)}</span></td>
-            <td><span class="status-badge status-complete">${data.total_tasks}/67</span></td>
-        `;
+        tr.innerHTML = `<td class="rank-cell ${rankClass}">${rankEmoji}</td><td><div class="model-cell">${logoHtml}<div><div class="model-name">${name}</div><div class="model-org">${org}</div></div></div></td><td class="score-cell">${data.overall.toFixed(3)}<span class="score-bar"><span class="score-bar-fill" style="width:${data.overall*100}%"></span></span></td><td class="cat-col"><span class="cat-badge ${getCatClass(cats.COM||0)}">${(cats.COM||0).toFixed(2)}</span></td><td class="cat-col"><span class="cat-badge ${getCatClass(cats.KNW||0)}">${(cats.KNW||0).toFixed(2)}</span></td><td class="cat-col"><span class="cat-badge ${getCatClass(cats.LEG||0)}">${(cats.LEG||0).toFixed(2)}</span></td><td class="cat-col"><span class="cat-badge ${getCatClass(cats.LOC||0)}">${(cats.LOC||0).toFixed(2)}</span></td><td class="cat-col"><span class="cat-badge ${getCatClass(cats.MFG||0)}">${(cats.MFG||0).toFixed(2)}</span></td><td><span class="status-badge status-complete">${data.total_tasks}/67</span></td>`;
         tbody.appendChild(tr);
     });
 }
-
 function showDetail(modelName) {
-    const data = LEADERBOARD_DATA[modelName];
-    if (!data) return;
+    const data = LEADERBOARD_DATA[modelName]; if (!data) return;
     document.getElementById('detail-model-name').textContent = modelName;
     document.getElementById('detail-model-org').textContent = data.org || '';
-
     const cats = data.categories || {};
-    const statsHtml = Object.entries(cats).map(([cat, score]) => `
-        <div class="detail-stat"><div class="detail-stat-value">${score.toFixed(3)}</div><div class="detail-stat-label">${cat}</div></div>
-    `).join('');
-    document.getElementById('detail-stats').innerHTML = `
-        <div class="detail-stat"><div class="detail-stat-value" style="color:var(--accent)">${data.overall.toFixed(3)}</div><div class="detail-stat-label">Overall</div></div>
-        ${statsHtml}
-    `;
-
+    const statsHtml = Object.entries(cats).map(([cat, score]) => `<div class="detail-stat"><div class="detail-stat-value">${score.toFixed(3)}</div><div class="detail-stat-label">${cat}</div></div>`).join('');
+    document.getElementById('detail-stats').innerHTML = `<div class="detail-stat"><div class="detail-stat-value" style="color:var(--accent)">${data.overall.toFixed(3)}</div><div class="detail-stat-label">Overall</div></div>${statsHtml}`;
     const tasks = data.tasks || {};
-    const taskRows = Object.entries(tasks).sort((a, b) => b[1].grade - a[1].grade).map(([taskId, scores]) => {
-        const cat = taskId.split('-')[0];
-        return `<tr><td>${taskId}</td><td><span class="cat-badge">${cat}</span></td><td class="${getGradeClass(scores.grade)}">${scores.grade.toFixed(3)}</td><td>${scores.pytest_passed}/${scores.pytest_total}</td><td>${(scores.judge||0).toFixed(2)}</td></tr>`;
-    }).join('');
-    document.getElementById('detail-tasks').innerHTML = taskRows;
+    document.getElementById('detail-tasks').innerHTML = Object.entries(tasks).sort((a, b) => b[1].grade - a[1].grade).map(([taskId, scores]) => `<tr><td>${taskId}</td><td><span class="cat-badge">${taskId.split('-')[0]}</span></td><td class="${getGradeClass(scores.grade)}">${scores.grade.toFixed(3)}</td><td>${scores.pytest_passed}/${scores.pytest_total}</td><td>${(scores.judge||0).toFixed(2)}</td></tr>`).join('');
     document.getElementById('detail-overlay').classList.add('active');
 }
-
 function closeDetail() { document.getElementById('detail-overlay').classList.remove('active'); }
 document.getElementById('detail-overlay').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeDetail(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDetail(); });
