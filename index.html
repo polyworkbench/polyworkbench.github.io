@@ -82,7 +82,7 @@
                 <li><strong>Pytest</strong> &mdash; Executable pass/fail verification of on-disk artefacts (diagnostic)</li>
                 <li><strong>Judge</strong> &mdash; LLM-as-Judge semantic quality assessment (diagnostic)</li>
             </ul>
-            <p style="margin-bottom:12px"><strong>Current Status:</strong> <strong>32 model&times;harness entries</strong> (8 base models &times; 4 harnesses: ClaudeCode, OpenClaw, Hermes, Codex), up to 3 completed runs per entry. Domain-level Grade follows the paper's heatmap; Judge is shown where reported in the paper; cells marked &ldquo;&mdash;&rdquo; are not yet published.</p>
+            <p style="margin-bottom:12px"><strong>Current Status:</strong> <strong>32 model&times;harness entries</strong> (8 base models &times; 4 harnesses: ClaudeCode, OpenClaw, Hermes, Codex), up to 3 completed runs per entry. Domain-level Grade follows the paper&rsquo;s heatmap; Judge is reported alongside Grade as a diagnostic signal.</p>
             <p><strong>Domains:</strong> COM (Commerce, 16) | KNW (Knowledge, 11) | LEG (Legal, 15) | LOC (Localization, 11) | MFG (Manufacturing, 14)</p>
         </div>
     </div>
@@ -124,7 +124,7 @@ const LEADERBOARD_DATA = {
     "org": "Zhipu AI",
     "overall": 0.855,
     "pass3": 0.895,
-    "judge": null,
+    "judge": 0.816,
     "n_j": null,
     "categories": { "COM": 0.73, "KNW": 0.95, "LEG": 0.85, "LOC": 0.87, "MFG": 0.92 },
     "total_tasks": 67
@@ -135,7 +135,7 @@ const LEADERBOARD_DATA = {
     "org": "Zhipu AI",
     "overall": 0.853,
     "pass3": 0.893,
-    "judge": null,
+    "judge": 0.815,
     "n_j": null,
     "categories": { "COM": 0.74, "KNW": 0.92, "LEG": 0.86, "LOC": 0.86, "MFG": 0.90 },
     "total_tasks": 67
@@ -157,7 +157,7 @@ const LEADERBOARD_DATA = {
     "org": "Zhipu AI",
     "overall": 0.823,
     "pass3": 0.875,
-    "judge": null,
+    "judge": 0.808,
     "n_j": null,
     "categories": { "COM": 0.76, "KNW": 0.87, "LEG": 0.88, "LOC": 0.77, "MFG": 0.84 },
     "total_tasks": 67
@@ -168,7 +168,7 @@ const LEADERBOARD_DATA = {
     "org": "OpenAI",
     "overall": 0.815,
     "pass3": 0.815,
-    "judge": null,
+    "judge": 0.806,
     "n_j": null,
     "categories": { "COM": 0.74, "KNW": 0.91, "LEG": 0.83, "LOC": 0.80, "MFG": 0.82 },
     "total_tasks": 67
@@ -179,7 +179,7 @@ const LEADERBOARD_DATA = {
     "org": "OpenAI",
     "overall": 0.808,
     "pass3": 0.905,
-    "judge": null,
+    "judge": 0.804,
     "n_j": null,
     "categories": { "COM": 0.69, "KNW": 0.93, "LEG": 0.72, "LOC": 0.86, "MFG": 0.91 },
     "total_tasks": 67
@@ -223,7 +223,7 @@ const LEADERBOARD_DATA = {
     "org": "DeepSeek",
     "overall": 0.797,
     "pass3": 0.835,
-    "judge": null,
+    "judge": 0.801,
     "n_j": null,
     "categories": { "COM": 0.69, "KNW": 0.92, "LEG": 0.84, "LOC": 0.73, "MFG": 0.77 },
     "total_tasks": 67
@@ -278,7 +278,7 @@ const LEADERBOARD_DATA = {
     "org": "Zhipu AI",
     "overall": 0.790,
     "pass3": 0.814,
-    "judge": null,
+    "judge": 0.800,
     "n_j": null,
     "categories": { "COM": 0.65, "KNW": 0.91, "LEG": 0.76, "LOC": 0.82, "MFG": 0.85 },
     "total_tasks": 67
@@ -344,7 +344,7 @@ const LEADERBOARD_DATA = {
     "org": "Alibaba",
     "overall": 0.766,
     "pass3": 0.824,
-    "judge": null,
+    "judge": 0.794,
     "n_j": null,
     "categories": { "COM": 0.64, "KNW": 0.69, "LEG": 0.82, "LOC": 0.84, "MFG": 0.85 },
     "total_tasks": 67
@@ -355,7 +355,7 @@ const LEADERBOARD_DATA = {
     "org": "DeepSeek",
     "overall": 0.758,
     "pass3": 0.828,
-    "judge": null,
+    "judge": 0.792,
     "n_j": null,
     "categories": { "COM": 0.51, "KNW": 0.91, "LEG": 0.84, "LOC": 0.83, "MFG": 0.77 },
     "total_tasks": 67
@@ -366,7 +366,7 @@ const LEADERBOARD_DATA = {
     "org": "Alibaba",
     "overall": 0.742,
     "pass3": 0.801,
-    "judge": null,
+    "judge": 0.788,
     "n_j": null,
     "categories": { "COM": 0.58, "KNW": 0.83, "LEG": 0.78, "LOC": 0.72, "MFG": 0.84 },
     "total_tasks": 67
@@ -377,7 +377,7 @@ const LEADERBOARD_DATA = {
     "org": "Alibaba",
     "overall": 0.727,
     "pass3": 0.804,
-    "judge": null,
+    "judge": 0.784,
     "n_j": null,
     "categories": { "COM": 0.63, "KNW": 0.84, "LEG": 0.77, "LOC": 0.71, "MFG": 0.72 },
     "total_tasks": 67
@@ -421,7 +421,7 @@ const LEADERBOARD_DATA = {
     "org": "Alibaba",
     "overall": 0.682,
     "pass3": 0.822,
-    "judge": null,
+    "judge": 0.773,
     "n_j": null,
     "categories": { "COM": 0.62, "KNW": 0.66, "LEG": 0.72, "LOC": 0.62, "MFG": 0.78 },
     "total_tasks": 67
@@ -432,7 +432,7 @@ const LEADERBOARD_DATA = {
     "org": "Alibaba",
     "overall": 0.673,
     "pass3": 0.746,
-    "judge": null,
+    "judge": 0.770,
     "n_j": null,
     "categories": { "COM": 0.57, "KNW": 0.66, "LEG": 0.59, "LOC": 0.81, "MFG": 0.75 },
     "total_tasks": 67
@@ -443,7 +443,7 @@ const LEADERBOARD_DATA = {
     "org": "Anthropic",
     "overall": 0.612,
     "pass3": 0.765,
-    "judge": null,
+    "judge": 0.755,
     "n_j": null,
     "categories": { "COM": 0.48, "KNW": 0.80, "LEG": 0.61, "LOC": 0.68, "MFG": 0.56 },
     "total_tasks": 67
@@ -487,8 +487,10 @@ function showDetail(modelName) {
     document.getElementById('detail-model-name').textContent = `${data.model || modelName} \u00b7 ${data.harness || ''}`;
     document.getElementById('detail-model-org').textContent = data.org || '';
     const cats = data.categories || {};
-    const stat = (label, value, dp, accent) =>
-        `<div class="detail-stat"><div class="detail-stat-value" ${accent ? 'style="color:var(--accent)"' : ''}>${fmt(value, dp)}</div><div class="detail-stat-label">${label}</div></div>`;
+    const stat = (label, value, dp, accent) => {
+        const disp = typeof value === 'string' ? value : fmt(value, dp);
+        return `<div class="detail-stat"><div class="detail-stat-value" ${accent ? 'style="color:var(--accent)"' : ''}>${disp}</div><div class="detail-stat-label">${label}</div></div>`;
+    };
     document.getElementById('detail-stats').innerHTML =
         stat('Pass@1', data.overall, 3, true) +
         stat('Pass@3', data.pass3, 3) +
